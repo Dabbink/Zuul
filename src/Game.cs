@@ -120,6 +120,9 @@ class Game
 			case "look":
 				Console.WriteLine(player.CurrentRoom.GetLongDescription());
 				break;
+			case "status":
+				Console.WriteLine("You have " + (player.IsAlive() ? "some" : "no") + " health left.");
+				break;
 			case "quit":
 				wantToQuit = true;
 				break;
