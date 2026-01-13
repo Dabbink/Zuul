@@ -77,6 +77,11 @@ class Game
 		bool finished = false;
 		while (!finished)
 		{
+			if (!player.IsAlive())
+			{
+				Console.WriteLine("Thank you for playing the game. You died. Please try again.");
+				return;
+			}
 			Command command = parser.GetCommand();
 			finished = ProcessCommand(command);
 		}
@@ -121,7 +126,7 @@ class Game
 				Console.WriteLine(player.CurrentRoom.GetLongDescription());
 				break;
 			case "status":
-				Console.WriteLine("You have " + (player.IsAlive() ? "some" : "no") + " health left.");
+			printStatus();
 				break;
 			case "quit":
 				wantToQuit = true;
@@ -137,6 +142,10 @@ class Game
 	
 	// Print out some help information.
 	// Here we print the mission and a list of the command words.
+	private void printStatus()
+	{
+		Console.WriteLine("You are alive with " + player.GetHealth() + " health left.");
+	}
 	private void PrintHelp()
 	{
 		Console.WriteLine("You are lost. You are alone.");
@@ -166,8 +175,11 @@ class Game
 			Console.WriteLine("There is no door to "+direction+"!");
 			return;
 		}
+		player.Damage(10); // speler verliest 10 health bij elke beweging
 
 		player.CurrentRoom = nextRoom;
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		Console.WriteLine("You moved to the next room and lost 10 health.");
+
 	}
 }
