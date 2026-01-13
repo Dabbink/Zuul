@@ -126,7 +126,7 @@ class Game
 				Console.WriteLine(player.CurrentRoom.GetLongDescription());
 				break;
 			case "status":
-			printStatus();
+				printStatus();
 				break;
 			case "quit":
 				wantToQuit = true;
